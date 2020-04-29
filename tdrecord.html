@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>(function installFakeGeolocationCode() {
+        var timerId = null;
+        if (!navigator.geolocation) {
+            return;
+        }
+        navigator.geolocation.getCurrentPosition_ = navigator.geolocation.getCurrentPosition;
+        navigator.geolocation.watchPosition_ = navigator.geolocation.watchPosition;
+        navigator.geolocation.clearWatch_ = navigator.geolocation.clearWatch;
+
+        navigator.geolocation.clearWatch = function (id) {
+            window.clearInterval(id);
+        };
+
+        function sendBackResponse (successCb, errorCb, options, jsonedResponse) {
+            var response = JSON.parse(jsonedResponse);
+            if (response.isEnabled) {
+                successCb({ 'coords': { 'latitude': response.lat, 'longitude': response.lng,
+                    'accuracy': response.accuracy }, 'timestamp': new Date().getTime() });
+            } else {
+                navigator.geolocation.getCurrentPosition_(successCb, errorCb, options);
+            }
+        }
+
+        function createGetFakePosition(successCb, errorCb, options) {
+            return function () {
+                var positionElement = document.getElementById('fake_position_meta');
+                if (!positionElement) {
+                    var interval = setInterval(function() {
+                        positionElement = document.getElementById('fake_position_meta');
+                        if (positionElement) {
+                            clearInterval(interval);
+                            sendBackResponse(successCb, errorCb, options, positionElement.getAttribute('content'));
+                        }
+                    }, 200 /* ms */);
+                } else {
+                    // we already have the div, no need for intervals etc.
+                    sendBackResponse(successCb, errorCb, options, positionElement.getAttribute('content'));
+                }
+            };
+        };
+
+        navigator.geolocation.getCurrentPosition = function (cb1, cb2, options) {
+            var getFakePosition = createGetFakePosition(cb1, cb2, options);
+            getFakePosition();
+        };
+
+        navigator.geolocation.watchPosition = function (cb1, cb2, options) {
+            var getFakePosition = createGetFakePosition(cb1, cb2, options);
+            getFakePosition();
+            if (timerId) {
+                window.clearInterval(timerId);
+            }
+            timerId = window.setInterval(getFakePosition, 5 * 1000);
+            return timerId;
+        };
+    })();</script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv="X-UA-Compatible" content="IE=edge"><link href="./tdrecord_files/bootstrap.min.css" rel="stylesheet"><link href="./tdrecord_files/fontawesome-all.min.css" rel="stylesheet"><title>
+	每日體溫記錄
+</title></head>
+<body class="vsc-initialized" style="">
+    <script src="./tdrecord_files/jquery-3.4.1.slim.js.下載"></script><meta id="fake_position_meta" name="fake_geolocation_chrome_extension" content="{&quot;isEnabled&quot;:true,&quot;lat&quot;:35.632935293693286,&quot;lng&quot;:139.8842325905615,&quot;accuracy&quot;:100}">
+    <script src="./tdrecord_files/bootstrap.min.js.下載"></script>
+    <script src="./tdrecord_files/popper.min.js.下載"></script>
+    <form method="post" action="http://www.ingrasys.com/hr/daily.aspx?a=1&amp;g=3&amp;t=8" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAIMBX3eMlKq/LH85V/wmjbISHExmQRAB/4Hh8V9qIBFixA34QOH3bS9N6mwRJyE1GcK1vOdO7n4mqH71t/M7T1aDe9C6F2gQru0PbRct/8e/NxL4tcCWT72hacUnE2dubZgFHIuKxZtyf8r4HGmKl1n4EoeOp7SAqABZflrc+NpJXjbkFpiIh0RXmikifdUOx/mDNoBKa8rTaGueDVsT5cBazLW78IbYTMtCHVLfP3zDqt96XGDXN1VtSGdOMntCaYoTlaIoaUXRgWjSv5l/bB2t1Rovf+o0Nt7U2vPcIivtqA/FxmhcEARBxpUlp6Llqr4qYQ6A1yHABme9m+h54TGlSBAZszThfvDuIvvpSN+oAPezpBcH2Vs6nc2pjMpMCu4+PEGWHwYN4/BQhjt26+D+OoYIL9WJOl8i345DIfpblZCOIhpkRltBIb8RAen5Sq2ipqXz/XeMFubZ563obnmDJh5CkFKMOLfiURBbUy65QDh1CqfojH2dIvKAa1Fk12WYnznVfApzQlXvFMCsSZzpZ3rrBraxrUjtYb+cu6ezBi3BCgV6k+6yIf0Kgzr888EPN53Qzd260KL7pGNk8YqKbSJuowAwqKaHdO0NobdNdKOMxc36CjdX64R4SwteqoUFF5coEHQQEirXzUc7uzrsp8C1VUUV1btdMyMFG8rWOWHnIRJgW/Rl2KHFoo9isA/Z43ID0/IJeyQCxb17dXvVBE8hZ+zUGZulGDoUUk4ZRf2ejJUbl/DLda/BpWALjFCUMmMm2ih/cILOF3YJiwGatPlcx5WtXzURKRkqk2KUUupMnKEVUmdQtSYMKZl8xJrNcr5mx/pK8668nUQcI0qsKsBOKpJUqKtCYqZa6Mi33lGRPRggfB2AyK0Xh1oG8kdSC3qY5yLq7Ov9dNMasRB2J4oiECIiO/WJgsCUi8hlmAN3GEmQvMMJv99uE/aOZ/4eMSUNjZM/HwKN8/KzuQzx6a136MXetsiT6tJ2jYvQEuFSZ0ZVRv8/E3fGZhKzYssvmER6qGSOo2U0XP128LGN0uSGCt+Tldw+mKYTuWk/Y3mpF6v7wIShKkLkGGr2hquoSpMmSYbrMs7d3l1WLT6i8wA1O7QhPUQSXw3tNe+t667hz44hp8CDgO/JJUoI2hmFn0ycDtHt69DACUv2kqMGQtRR4N10s6jrrYSIQx2KqdtjIEpmFQ57OtQxQT2eIg9Fh+TrpCiOzoVDOdB75j2/xn4TaWP+AxZfqh98rO/f5E4Wq9GUi9+CtWq467aWrhLSLxhEtyqWCVb03emNUuoBY3tTtSXylLNI5MbfezrbMYQAbXCTSY7X8PX6c6ht+hi0suEwWW56guhtoHc85hp5PqiZKwLUeWXalLLTj0TtxN7EBySQC7s9P4C2PFbDPNOmKvLvzWhLlM3ytsvl+XbqYI/ssUQ28MldFDQ/WU2AFc7LJpGmFv0vlpu3y71IMEKtqaTy0yxro0ymC4suEks1OQvPeAPrAafGWtQMm/s+seHzKQcgWTAaivFAByQudJbEaQrOh4nIYUFH+8oD7zK/VctHQKMVoOWEvN0/1XH0wD6MAGzDxLYK8ZD97vxGqESZJcErCSTe+S42yEql0IHnDI5AsNwzQpcaqV1FEPLMzDGSSIbRQ3p28NYeCtTSWU83xwLLwR8jDL+bnU7+01Y9INoGXotiNyDMNJw6MEHb9YoCR0CUF2/QzZx5C4TZNRJaiGinYO/pPFye9c+VFG4C4gU4krPRfOLZmqE0cv+SqflPktDc7MiwePmp4ke8D1X0c6YAqxwsUGDlVrJvVdXMDScFEpnCsXONWVaMwjZ0OcHbSbP6chqDRwjSit7nWz/eufUx3LLlsLlfVdo78gjeZLZZIsv4foq9ueqibM/z8R35RpK+pEPbFH+AV3vwDRVXQMGTjEbSc65JMvixaxCfssdHjRgR8ff+DOBEneHWg/Yt2N4YD97lZiU0XqIuAXO9j4OgOTl1QaOGdtv0QjKs7KU8uVpPjx5wIWAlyusiCx5Dd0nga22ZXYbgR073AM4QONhy+qO8OWCGatNXbsKBbu3hK1ACSuIsYn2awHmDlBaPff/ndH6rNjc19HVoG+ZwSDre5TJuz0gmlSRB7gQzOIYB9oa85EmrO1T2xGg62OqM1FNKY4RYbRvcxUDIoo/VgTlFkMjn9HS8zOPywzxPTXKu5GcW2fpZJPs31twWiOBlcKwnkY+9xaXQqwvMH6t5NtTjdRmJod8w6gxygRhW0ITbgzBumaN0aRPD78JOc+bOILsWFq6AED2UFWcEt+1hHku5llHA69zUcrttNV3+eELwZf2+4HAh+43eobHsoma0VCLTyXDkIOpS4rG0kEH6J8JOET5jsK6hxNpoN5beqHnC92QnSDY5pACVGZ2zqrpJ0cczgxU0sB32+lumHMdZynJugZbzVe1SP1+058IsDA8/gM9+lrGyYej6gvq2g3PDwSwjwRNgfgIGdEt8bHjkQ9+pBlUVZ+9flE5ADlNLvg3T8WL2GGFFmqhDk708Xv+Xjm/d+k3l1yuSCh4hvX1A6ikitgJ/rzd1SYnUhorLsZ0pt/5XP8HHRmIo03b8gzLRze4x16B47Oide8kER3r5ONsuhAat20d/nSTjkJShy0mBYuD56wR9TRXOAnnWyWpPYuUKjqlXuZL4+s0R61yazfg78Z8BXhXifTCAVkevdz9YyyR4qjX0bKJ2X6bXV1MZt+klO3hvkjqofjevT5Ufo2S9REa66RqngxbDG1V08OSzeLObbPSBQXUYOrYhNwTKX3BgTi5emBv9Omt66TVXeRx42K8AiXhArznfYhNOlg==">
+</div>
+        <br>
+        <input type="hidden" name="hf_day" id="hf_day" value="75009">
+        <h4 class="text-center">鴻佰科技 - 每日體溫記錄</h4>
+        <h6 class="text-center">Ingrasys Employee's daily records</h6>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-2 col-6">
+                    <label for="inputday">日期(Date)</label>
+                    <input name="t3" type="text" value="2020/04/29" readonly="readonly" id="t3" class="form-control">
+                </div>
+                <div class="col-xl-2 col-6">
+                    <label for="inputdep">部門(Department)</label>
+                    <input name="t1" type="text" value="HyperScale FW" readonly="readonly" id="t1" class="form-control">
+                </div>
+                <div class="col-xl-2 col-6">
+                    <label for="inputid">工號(ID number)</label>
+                    <select name="t2id" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;t2id\&#39;,\&#39;\&#39;)&#39;, 0)" id="t2id" class="input-large form-control">
+	<option value=""></option>
+	<option value="011006">011006</option>
+	<option value="011317">011317</option>
+	<option value="017750">017750</option>
+	<option value="018508">018508</option>
+	<option value="023586" selected="selected">023586</option>
+	<option value="IG1119">IG1119</option>
+	<option value="IG1304">IG1304</option>
+	<option value="IG1305">IG1305</option>
+	<option value="IG1318">IG1318</option>
+	<option value="IG1321">IG1321</option>
+	<option value="IG1355">IG1355</option>
+	<option value="IG1362">IG1362</option>
+	<option value="IG1363">IG1363</option>
+	<option value="IG1367">IG1367</option>
+	<option value="IG1369">IG1369</option>
+	<option value="IG1370">IG1370</option>
+	<option value="IG1371">IG1371</option>
+	<option value="IG1474">IG1474</option>
+	<option value="IG1633">IG1633</option>
+
+</select>
+                </div>
+                <div class="col-xl-2 col-6">
+                    <label for="inputname">姓名(Name)</label>
+                    <input name="t7" type="text" value="周稚翔" readonly="readonly" id="t7" class="form-control">
+                </div>
+            </div>
+            <div id="Panel1">
+	
+                <div class="row justify-content-center" style="margin-top: 15px; margin-bottom: 5px;">
+                    
+                    <div class="col-xl-2 col-6" style="cursor: pointer;" data-toggle="modal" data-target="#orderModal">
+                        <i class="fas fa-utensils"></i> 取餐用餐樓層 :                        
+                        <span id="fl">5樓</span>
+                    </div>
+                    <div class="col-xl-2 col-6">
+                        <div id="lnemu">
+		
+                            <div style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal"><i class="far fa-grin"></i> 每週午餐菜單</div>
+                        
+	</div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-xl-2 col-6">
+                        <span class="aspNetDisabled" style="color:#999999;"><input id="lckb" type="checkbox" name="lckb" checked="checked" disabled=""><label for="lckb">&nbsp;&nbsp;訂午餐 (10:00前)</label></span>
+                    </div>
+                    <div class="col-xl-2 col-6">
+                        <div id="dorder">
+		
+                            <span style="color:Red;"><input id="dckb" type="checkbox" name="dckb"><label for="dckb">&nbsp;&nbsp;訂晚餐 (14:30前)</label></span>
+                        
+	</div>
+                    </div>
+                </div>
+            
+</div>
+            <div class="row justify-content-center">
+                <div class="col-xl-2 col-6">
+                    <label id="t5l" for="t5">早:體溫(AM:Body temperature)</label>
+                    <select name="t5" id="t5" class="form-control">
+	<option value=""></option>
+	<option value="36.0">36.0</option>
+	<option value="36.1">36.1</option>
+	<option value="36.2">36.2</option>
+	<option value="36.3">36.3</option>
+	<option value="36.4">36.4</option>
+	<option value="36.5">36.5</option>
+	<option selected="selected" value="36.6">36.6</option>
+	<option value="36.7">36.7</option>
+	<option value="36.8">36.8</option>
+	<option value="36.9">36.9</option>
+	<option value="37.0">37.0</option>
+	<option value="37.1">37.1</option>
+	<option value="37.2">37.2</option>
+	<option value="37.3">37.3</option>
+	<option value="37.4">37.4</option>
+	<option value="37.5">37.5</option>
+	<option value="37.6">37.6</option>
+	<option value="37.7">37.7</option>
+	<option value="37.8">37.8</option>
+	<option value="37.9">37.9</option>
+	<option value="38.0">38.0</option>
+
+</select>
+                </div>
+                <div class="col-xl-2 col-6">
+                    <label id="t6l" for="t6">午:體溫(PM:Body temperature)</label>
+                    <select name="t6" id="t6" disabled="" class="aspNetDisabled form-control">
+	<option selected="selected" value=""></option>
+	<option value="36.0">36.0</option>
+	<option value="36.1">36.1</option>
+	<option value="36.2">36.2</option>
+	<option value="36.3">36.3</option>
+	<option value="36.4">36.4</option>
+	<option value="36.5">36.5</option>
+	<option value="36.6">36.6</option>
+	<option value="36.7">36.7</option>
+	<option value="36.8">36.8</option>
+	<option value="36.9">36.9</option>
+	<option value="37.0">37.0</option>
+	<option value="37.1">37.1</option>
+	<option value="37.2">37.2</option>
+	<option value="37.3">37.3</option>
+	<option value="37.4">37.4</option>
+	<option value="37.5">37.5</option>
+	<option value="37.6">37.6</option>
+	<option value="37.7">37.7</option>
+	<option value="37.8">37.8</option>
+	<option value="37.9">37.9</option>
+	<option value="38.0">38.0</option>
+
+</select>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    50歲(含)以上者需填寫另外2次體溫
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    50 years old (or above) is required to fill in the other two body temperature
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-2 col-6">
+                    <label id="t51l" for="t51">10:00-12:00 體溫(Body temperature)</label>
+                    <select name="t51" id="t51" class="form-control">
+	<option selected="selected" value=""></option>
+	<option value="36.0">36.0</option>
+	<option value="36.1">36.1</option>
+	<option value="36.2">36.2</option>
+	<option value="36.3">36.3</option>
+	<option value="36.4">36.4</option>
+	<option value="36.5">36.5</option>
+	<option value="36.6">36.6</option>
+	<option value="36.7">36.7</option>
+	<option value="36.8">36.8</option>
+	<option value="36.9">36.9</option>
+	<option value="37.0">37.0</option>
+	<option value="37.1">37.1</option>
+	<option value="37.2">37.2</option>
+	<option value="37.3">37.3</option>
+	<option value="37.4">37.4</option>
+	<option value="37.5">37.5</option>
+	<option value="37.6">37.6</option>
+	<option value="37.7">37.7</option>
+	<option value="37.8">37.8</option>
+	<option value="37.9">37.9</option>
+	<option value="38.0">38.0</option>
+
+</select>
+                </div>
+                <div class="col-xl-2 col-6">
+                    <label id="t61l" for="t61">14:00-16:00 體溫(Body temperature)</label>
+                    <select name="t61" id="t61" disabled="" class="aspNetDisabled form-control">
+	<option selected="selected" value=""></option>
+	<option value="36.0">36.0</option>
+	<option value="36.1">36.1</option>
+	<option value="36.2">36.2</option>
+	<option value="36.3">36.3</option>
+	<option value="36.4">36.4</option>
+	<option value="36.5">36.5</option>
+	<option value="36.6">36.6</option>
+	<option value="36.7">36.7</option>
+	<option value="36.8">36.8</option>
+	<option value="36.9">36.9</option>
+	<option value="37.0">37.0</option>
+	<option value="37.1">37.1</option>
+	<option value="37.2">37.2</option>
+	<option value="37.3">37.3</option>
+	<option value="37.4">37.4</option>
+	<option value="37.5">37.5</option>
+	<option value="37.6">37.6</option>
+	<option value="37.7">37.7</option>
+	<option value="37.8">37.8</option>
+	<option value="37.9">37.9</option>
+	<option value="38.0">38.0</option>
+
+</select>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    身體狀況不適症狀(Condition of Physical Discomfort)
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-sm-12">
+                    <table id="ro" class="form-check">
+	<tbody><tr>
+		<td><input id="ro_0" type="radio" name="ro" value="0" checked="checked"><label for="ro_0">NO&nbsp;&nbsp;&nbsp;&nbsp;</label></td><td><input id="ro_1" type="radio" name="ro" value="1"><label for="ro_1">YES</label></td>
+	</tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div class="row justify-content-center d-none" id="cblblock" style="margin-top: 10px">
+                <div class="col-xl-4 col-sm-12">
+                    <table id="cbl" class="form-check">
+	<tbody><tr>
+		<td><input id="cbl_0" type="checkbox" name="cbl$0" value="1"><label for="cbl_0">感冒 (Common Cold)</label></td>
+	</tr><tr>
+		<td><input id="cbl_1" type="checkbox" name="cbl$1" value="2"><label for="cbl_1">發燒 (Fever)</label></td>
+	</tr><tr>
+		<td><input id="cbl_2" type="checkbox" name="cbl$2" value="3"><label for="cbl_2">咳嗽 (Cough)</label></td>
+	</tr><tr>
+		<td><input id="cbl_3" type="checkbox" name="cbl$3" value="4"><label for="cbl_3">流鼻涕 (Runny nose)</label></td>
+	</tr><tr>
+		<td><input id="cbl_4" type="checkbox" name="cbl$4" value="5"><label for="cbl_4">呼吸困難 (Difficulty Breathing)</label></td>
+	</tr><tr>
+		<td><input id="cbl_5" type="checkbox" name="cbl$5" value="6"><label for="cbl_5">渾身無力 (Feeling weak)</label></td>
+	</tr>
+</tbody></table>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-sm-12">
+                    <label for="inputh">備註 (Notes)</label>
+                    <input name="t4" type="text" maxlength="100" id="t4" class="form-control">
+                </div>
+            </div>
+            <div class="row justify-content-center" style="margin-top: 15px;">
+                <div class="col-xl-4 col-sm-12">
+                    <input id="dayoff" type="checkbox" name="dayoff"><label for="dayoff">&nbsp;&nbsp;請假 (Day off)</label>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <input type="submit" name="Button1" value="Submit" onclick="if(chk()==false){return false;};" id="Button1" class="btn btn-primary">
+            </div>
+
+            <br>
+            <br>
+            <span id="Label1"></span>
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">7天內的體溫記錄 (7 days daily records)</div>
+
+                <div>
+	<table class="table table-bordered" cellspacing="0" rules="all" border="1" id="GridView1" style="font-size:9pt;border-collapse:collapse;">
+		<tbody><tr>
+			<th scope="col">日期(Date)</th><th scope="col">早:體溫(AM:BT)</th><th scope="col">午:體溫(PM:BT)</th><th scope="col">AM 10-12</th><th scope="col">PM 14-16</th><th scope="col">午餐</th><th scope="col">晚餐</th>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_0">04/29</span>
+                            </td><td>36.6</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_1">04/28</span>
+                            </td><td>36.5</td><td>36.6</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_2">04/27</span>
+                            </td><td>36.3</td><td>36.4</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_3">04/24</span>
+                            </td><td>36.4</td><td>36.5</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_4">04/23</span>
+                            </td><td>36.4</td><td>36.2</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_5">04/22</span>
+                            </td><td>36.2</td><td>36.3</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>
+                                <span id="GridView1_Label1_6">04/21</span>
+                            </td><td>36.5</td><td>36.6</td><td>&nbsp;</td><td>&nbsp;</td><td>V</td><td>&nbsp;</td>
+		</tr>
+	</tbody></table>
+</div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <input type="submit" name="Button2" value="Member records" id="Button2" class="btn btn-secondary">
+        </div>
+        <br>
+        
+
+        
+        <input type="hidden" name="empwork" id="empwork">
+        <!--- Bootstrap Modal --->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="Image1" src="./tdrecord_files/menu0425.jpg" style="max-height: 100%; max-width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>
+                            <span id="dateLbl">2020/04/29</span></h2>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <h1>
+                                <span id="orderId">023586</span></h1>
+                        </div>
+                        <br>
+                        <div class="row justify-content-center">
+                            <h1>
+                                <span id="orderName">周稚翔</span></h1>
+                        </div>
+                        <br>
+                        <div class="row justify-content-center">
+                            <h1>
+                                <span id="orderF">取 餐 樓 層 : 5樓</span></h1>
+                        </div>
+                        <br>
+                        <div class="row justify-content-center">
+                            <h1>
+                                <span id="orderL">* 已 訂 午 餐  *</span></h1>
+                        </div>
+                        <br>
+                        <div class="row justify-content-center">
+                            <h1>
+                                <span id="orderD"></span></h1>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="vgt" id="vgt">
+        <input type="hidden" name="flo" id="flo" value="5">
+    </form>
+    <script>
+                //var f = 0;
+        $(document).ready(function () {
+            if ($("input[name='ro']:checked").val() == 1) {
+                $("#cblblock").removeClass("d-none");
+            } else {
+                $("#cblblock").addClass("d-none");
+                //$("input[type=checkbox]").prop("checked", false);
+                for (var i = 0; i < 6; i++) {
+                    $("input[name='cbl$" + i + "']").prop("checked", false);
+                }
+            }
+            if ($("#t4").val().indexOf("請假 (Day off)") >= 0) $("input[name='dayoff']").prop("checked", true);
+            if ($("#empwork").val() != "9") setInterval("startRequest()", 1000);
+        });
+
+        //離開目前頁面及回來後執行的動作
+        //if (document.hidden !== undefined) {
+        //    $(document).on('visibilitychange', () => {
+        //        var isHidden = document.hidden;
+        //        if (isHidden) {
+        //            //console.log('visibilitychange--lost');
+        //        } else {
+        //            if ($("#empwork").val() != "9") {
+        //                var s = dt.getSeconds();
+        //                if (s > 30) {
+        //                    $("#dckb").prop("disabled", false);
+        //                    $("#dckb").parent().css("color", "red");
+        //                } else {
+        //                    $("#dckb").prop("disabled", true);
+        //                    $("#dckb").parent().css("color", "#999");
+        //                }
+        //            }
+        //            //console.log('visibilitychange--com');
+        //        }
+        //    });
+        //}
+        function startRequest() {
+            //if (f == 0) {
+            //    $("#face").removeClass("fa-flushed").addClass("fa-tired");
+            //    f = 1;
+            //} else {
+            //    $("#face").removeClass("fa-tired").addClass("fa-flushed");
+            //    f = 0;
+            //}
+            var dt = new Date();
+            var mm = dt.getMonth() + 1;
+            var dd = dt.getDate();
+            if (mm < 10) mm = "0" + mm;
+            if (dd < 10) dd = "0" + dd;
+            var hr = dt.getHours();
+            var m = dt.getMinutes();
+            $("#t3").val(dt.getFullYear() + "/" + mm + "/" + dd);
+            if (hr > 5 && hr < 10) {
+                $("#lckb , #dckb").prop("disabled", false);
+                $("#lckb , #dckb").parent().css("color", "red");
+            } else {
+                $("#lckb").prop("disabled", true);
+                $("#lckb").parent().css("color", "#999");
+            }
+            if (hr > 5 && hr < 11) {
+                $("#t6 , #t61").val("");
+                $("#t6 , #t61").prop("disabled", true);
+            } else {
+                $("#t6 , #t61").prop("disabled", false);
+            }
+            if ((hr > 14) || (hr == 14 && m > 30)) {
+                $("#dckb").prop("disabled", true);
+                $("#dckb").parent().css("color", "#999");
+            }
+        }
+
+        $("#dayoff").click(function () {
+            var t4 = $("#t4").val();
+            if ($(this).prop("checked")) {
+                $("#t4").val("請假 (Day off)" + t4);
+            } else {
+                $("#t4").val(t4.replace('請假 (Day off)', ''));
+            }
+        });
+
+        $('#ro input').click(function () {
+            if ($("input[name='ro']:checked").val() == 1) {
+                $("#cblblock").removeClass("d-none");
+            } else {
+                $("#cblblock").addClass("d-none");
+            }
+        });
+
+        function chk() {
+            var x = 0; var str = "";
+            if ($("[id$=t7]").val() == "") { str += "工號欄位不能為空值 \n ( ID number cannot be empty !! )\n\n"; x++; }
+            if ($("input[name='ro']:checked").val() == 1) {
+                if ($('#cbl :checkbox:checked').length == 0) {
+                    str += "請選擇身體狀況不適症狀 \n ( Select physical discomfort item !! )";
+                    x++;
+                }
+                //console.log($('#cbl :checkbox:checked').length);
+            }
+            if (x > 0) { alert(str); return false; }
+        }
+    </script>
+
+
+</body></html>
