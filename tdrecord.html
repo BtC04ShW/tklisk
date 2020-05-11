@@ -468,6 +468,12 @@ function __doPostBack(eventTarget, eventArgument) {
             }
             if ($("#t4").val().indexOf("請假 (Day off)") >= 0) $("input[name='dayoff']").prop("checked", true);
             if ($("#empwork").val() != "9") setInterval("startRequest()", 1000);
+            var dt = new Date();
+            var mm = dt.getMonth() + 1;
+            var dd = dt.getDate();
+            if (mm < 10) mm = "0" + mm;
+            if (dd < 10) dd = "0" + dd;
+            $("#dateLbl").text(dt.getFullYear() + "/" + mm + "/" + dd);
         });
 
         //離開目前頁面及回來後執行的動作
