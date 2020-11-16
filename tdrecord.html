@@ -399,7 +399,7 @@ function __doPostBack(eventTarget, eventArgument) {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>
-                            <span id="dateLbl">2020/04/29</span></h2>
+                            <span id="dateLbd">2020/04/29</span></h2>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
@@ -501,6 +501,7 @@ function __doPostBack(eventTarget, eventArgument) {
             var dd = dt.getDate();
             if (mm < 10) mm = "0" + mm;
             if (dd < 10) dd = "0" + dd;
+            $("#dateLbd").text(dt.getFullYear() + "/" + mm + "/" + dd);
             $("#dateLbl").text(dt.getFullYear() + "/" + mm + "/" + dd);
         });
 
