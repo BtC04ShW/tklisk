@@ -1,0 +1,39 @@
+﻿{
+  "name": "鴻佰體溫訂餐",
+  "short_name": "鴻佰體溫訂餐",
+  "icons": [
+    {
+      "src": "../icons/app-icon-48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "../icons/app-icon-64x64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "../icons/app-icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "../icons/app-icon-256x256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "../icons/app-icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fff",
+  "theme_color": "#3f51b5",
+  "description": "鴻佰科技每日體溫記錄",
+  "dir": "ltr",
+  "lang": "zh-TW"
+}
