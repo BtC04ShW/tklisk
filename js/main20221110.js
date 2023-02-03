@@ -128,23 +128,13 @@ function CheckBoxList_Click(sender) {
                             case "6"://星期三團膳輕食
                                 chkList[3].checked = true;
                                 break;
-                            case "2"://星期2,4拉亞輕食
-                                chkList[3].checked = true;
+                            case "2"://當輕食隱藏時需判斷拉亞在第幾項
+                                if (chkList.length == 5) {
+                                    chkList[3].checked = true;
+                                } else {
+                                    chkList[4].checked = true;
+                                }                                
                                 break;
-                            //case "2"://當輕食隱藏時需判斷拉亞或全家在第幾項
-                            //    if (chkList.length == 5) {
-                            //        chkList[3].checked = true;
-                            //    } else {
-                            //        chkList[4].checked = true;
-                            //    }                                
-                            //    break;
-                            //case "3":
-                            //    if (chkList.length == 5) {
-                            //        chkList[4].checked = true;
-                            //    } else {
-                            //        chkList[5].checked = true;
-                            //    } 
-                            //    break;
                         }
                     }
                     break;

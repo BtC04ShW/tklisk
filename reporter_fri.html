@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+
+<html style="height: 100%" xmlns="http://www.w3.org/1999/xhtml">
+<head><link href="icons/ingrasys.ico" rel="icon" type="image/x-icon"/><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport"/><meta content="IE=edge" http-equiv="X-UA-Compatible"/><title>
+	鴻佰體溫訂餐
+</title><meta content="#000000" name="theme-color"/><link href="css/swiper-bundle.min.css" rel="stylesheet"/><link href="css/bootstrap.min.css" rel="stylesheet"/><link href="css/toastr.css" rel="stylesheet"/><link href="webfonts/fontawesome-all.min.css" rel="stylesheet"/><link href="css/font-awesome-animation.min.css" rel="stylesheet"/><link href="css/StyleSheet20221129.css" rel="stylesheet"/>
+<script src="./js/jquery-3.4.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/toastr.min.js"></script>
+<script src="./js/swiper-bundle.min.js"></script>
+<link href="./Manifest.ashx?igid=d1322ea6-f644-4275-beba-ab58f33c068e" rel="manifest"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black" name="apple-mobile-web-app-status-bar-style"/><meta content="鴻佰體溫訂餐" name="apple-mobile-web-app-title"/><link href="icons/app-icon-128x128.png" rel="apple-touch-icon"/><link href="icons/app-icon-144x144.png" rel="apple-touch-icon"/><link href="icons/app-icon-152x152.png" rel="apple-touch-icon"/><link href="icons/app-icon-192x192.png" rel="apple-touch-icon"/><link href="icons/app-icon-384x384.png" rel="apple-touch-icon"/><link href="icons/app-icon-512x512.png" rel="apple-touch-icon"/>
+<style>
+        .fc1 {
+            color: blue
+        }
+
+        .notselect {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<form action="./d1322ea6-f644-4275-beba-ab58f33c068e" id="form1" method="post">
+<div class="aspNetHidden">
+<input id="__EVENTTARGET" name="__EVENTTARGET" type="hidden" value=""/>
+<input id="__EVENTARGUMENT" name="__EVENTARGUMENT" type="hidden" value=""/>
+<input id="__VIEWSTATE" name="__VIEWSTATE" type="hidden" value="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"/>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+<div class="aspNetHidden">
+<input id="__VIEWSTATEGENERATOR" name="__VIEWSTATEGENERATOR" type="hidden" value="1270D89F"/>
+<input id="__EVENTVALIDATION" name="__EVENTVALIDATION" type="hidden" value="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"/>
+</div>
+<input id="olitem" name="olitem" type="hidden"/>
+<input id="oditem" name="oditem" type="hidden"/>
+<input id="btchk" name="btchk" type="hidden" value="0"/>
+<input id="gno" name="gno" type="hidden" value="3"/>
+<input id="tno" name="tno" type="hidden" value="8"/>
+<input id="hf_day" name="hf_day" type="hidden" value="1"/>
+<input id="empwork" name="empwork" type="hidden"/>
+<input id="vgt" name="vgt" type="hidden"/>
+<input id="cs" name="cs" type="hidden"/>
+<input id="fl" name="fl" type="hidden"/>
+<!-- Swiper -->
+<div class="swiper fixed-top" id="swiper2">
+<div class="swiper-wrapper text-center notselect">
+<div class="swiper-slide active-nav">
+                    體溫
+                </div>
+<div class="swiper-slide">
+                    訂餐
+                </div>
+<div class="swiper-slide">
+                    電子報
+                </div>
+<div class="swiper-slide">
+                    員工專區
+                </div>
+<div class="swiper-slide">
+                    用餐說明
+                </div>
+</div>
+</div>
+<div class="swiper" id="swiper3">
+<div class="swiper-wrapper">
+<div class="swiper-slide bkcolor0">
+<div class="container" style="margin-top: 50px">
+<div class="text-danger" style="font-size: Smaller">◆請於每日08:30及20:30前，完成登錄回報作業，逾時未回報的同仁，系統將通知所屬主管</div>
+<div class="row justify-content-center mt-2">
+<div class="col-xl-2 col-6">
+<i class="fas fa-calendar-day fa-fw"></i>
+<span id="t3">2023/02/03</span>
+</div>
+<div class="col-xl-2 col-6">
+<i class="fas fa-id-card-alt fa-fw"></i>
+<span id="t2id">023586</span>
+</div>
+<div class="col-xl-2 col-6">
+<i class="fas fa-user fa-fw"></i>
+<span id="name">周稚翔</span>
+</div>
+<div class="col-xl-2 col-6">
+<i class="fas fa-users fa-fw"></i>
+<span id="dep">HyperScale FW</span>
+</div>
+</div>
+<div class="row justify-content-center mb-3">
+<div class="col-xl-2 col-6">
+<i class="fas fa-temperature-low fa-fw"></i>
+<span id="t5l"> 上午</span>
+<select class="form-control" id="t5" name="t5" style="font-size:Smaller;height:30px;">
+<option selected="selected" value=""></option>
+<option value="36.0">36.0</option>
+<option value="36.1">36.1</option>
+<option value="36.2">36.2</option>
+<option value="36.3">36.3</option>
+<option value="36.4">36.4</option>
+<option value="36.5">36.5</option>
+<option value="36.6">36.6</option>
+<option value="36.7">36.7</option>
+<option value="36.8">36.8</option>
+<option value="36.9">36.9</option>
+<option value="37.0">37.0</option>
+<option value="37.1">37.1</option>
+<option value="37.2">37.2</option>
+<option value="37.3">37.3</option>
+<option value="37.4">37.4</option>
+<option value="37.5">37.5</option>
+<option value="37.6">37.6</option>
+<option value="37.7">37.7</option>
+<option value="37.8">37.8</option>
+<option value="37.9">37.9</option>
+<option value="38.0">38.0</option>
+<option value="38.1">38.1</option>
+<option value="38.2">38.2</option>
+<option value="38.3">38.3</option>
+<option value="38.4">38.4</option>
+<option value="38.5">38.5</option>
+<option value="38.6">38.6</option>
+<option value="38.7">38.7</option>
+<option value="38.8">38.8</option>
+<option value="38.9">38.9</option>
+<option value="39.0">39.0</option>
+</select>
+</div>
+<div class="col-xl-2 col-6">
+<i class="fas fa-temperature-low fa-fw"></i>
+<span id="t6l"> 下午</span>
+<select class="aspNetDisabled form-control" disabled="disabled" id="t6" name="t6" style="font-size:Smaller;height:30px;">
+<option selected="selected" value=""></option>
+<option value="36.0">36.0</option>
+<option value="36.1">36.1</option>
+<option value="36.2">36.2</option>
+<option value="36.3">36.3</option>
+<option value="36.4">36.4</option>
+<option value="36.5">36.5</option>
+<option value="36.6">36.6</option>
+<option value="36.7">36.7</option>
+<option value="36.8">36.8</option>
+<option value="36.9">36.9</option>
+<option value="37.0">37.0</option>
+<option value="37.1">37.1</option>
+<option value="37.2">37.2</option>
+<option value="37.3">37.3</option>
+<option value="37.4">37.4</option>
+<option value="37.5">37.5</option>
+<option value="37.6">37.6</option>
+<option value="37.7">37.7</option>
+<option value="37.8">37.8</option>
+<option value="37.9">37.9</option>
+<option value="38.0">38.0</option>
+<option value="38.1">38.1</option>
+<option value="38.2">38.2</option>
+<option value="38.3">38.3</option>
+<option value="38.4">38.4</option>
+<option value="38.5">38.5</option>
+<option value="38.6">38.6</option>
+<option value="38.7">38.7</option>
+<option value="38.8">38.8</option>
+<option value="38.9">38.9</option>
+<option value="39.0">39.0</option>
+</select>
+</div>
+</div>
+<div class="row justify-content-center my-2">
+<div class="col-xl-6 col-12 text-center">
+<a class="btn btn-outline-danger" href="https://www.surveycake.com/s/bvoar" id="surveyforhttp"><i class="far fa-edit faa-flash faa-fast animated"></i> Covid-19確診回報<br/>(如有確診或家人確診請務必填寫,不用每天填)</a>
+</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-xl-4 col-sm-12 text-left font-weight-bold">
+<span id="eicon"><i class="far fa-meh"></i></span> 今日有無身體不適症狀 
+                            </div>
+<div class="col-xl-4 col-sm-12">
+<span id="rblcpd"><input id="rblcpd_0" name="rblcpd" type="radio" value="0"/><label for="rblcpd_0"> 無不適症狀   </label><input id="rblcpd_1" name="rblcpd" type="radio" value="1"/><label for="rblcpd_1"> 有，請填寫不適狀況</label></span>
+</div>
+</div>
+<div class="row justify-content-center d-none" id="cblblock">
+<div class="col-xl-4 col-sm-12">
+<input class="form-control" id="t4" maxlength="100" name="t4" style="width:100%;" type="text"/>
+</div>
+</div>
+<div class="row justify-content-center my-1 font-weight-bold">
+<div class="col-xl-2 col-12 text-left"><i class="fas fa-house-user"></i> 出勤狀況</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-5">
+<input id="rb0" name="gr" type="radio" value="rb0"/><label for="rb0">正常出勤</label>
+</div>
+<div class="col-7">
+<input id="rb1" name="gr" type="radio" value="rb1"/><label for="rb1">防疫隔離假</label>
+</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-5">
+<input id="rb2" name="gr" type="radio" value="rb2"/><label for="rb2">居家上班</label>
+</div>
+<div class="col-7">
+<input id="rb3" name="gr" type="radio" value="rb3"/><label for="rb3">疫苗接種假</label>
+</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-5">
+<input id="rb4" name="gr" type="radio" value="rb4"/><label for="rb4">其他假別</label>
+</div>
+<div class="col-5">
+<select class="form-control d-none" id="ddl1" name="ddl1" style="font-size:Smaller;height:30px;">
+<option selected="selected" value="12">特休</option>
+<option value="3">防疫照顧假</option>
+<option value="10">病假</option>
+<option value="11">事假</option>
+<option value="13">出差</option>
+<option value="14">公假</option>
+<option value="15">婚假</option>
+<option value="16">產假</option>
+<option value="17">產檢假</option>
+<option value="18">陪產假</option>
+<option value="19">喪假</option>
+<option value="20">公傷假</option>
+<option value="21">公出</option>
+<option value="22">生理假</option>
+</select>
+</div>
+<div class="col-2"></div>
+</div>
+<div class="text-danger" style="font-size: Smaller">◆提醒：本系統之假勤回報資料僅做為每日出勤報表統計使用，個人請假仍需依照出勤管理辦法之規定，檢附證明文件進行請假手續。</div>
+<div class="row justify-content-center mt-2">
+<a class="btn btn-primary" href="javascript:__doPostBack('LinkButton1','')" id="LinkButton1" onclick="if(chk()==false){return false;};"><i class="fas fa-cloud-upload-alt"></i> 送 出</a>
+</div>
+<div class="row">
+<div class="col">
+<a class="btn btn-outline-warning mt-3" href="javascript:__doPostBack('tempbtn','')" id="tempbtn" style="display:inline-block;color:#996600;background-color:#FFFFCC;font-weight:bold;width:100%;">推薦獎金快速連結</a>
+</div>
+<div class="col">
+<button class="btn btn-outline-warning mt-3" data-target="#videoModal" data-text="" data-toggle="modal" data-video="\nq\img\video\7.mp4" onclick="count(10)" style="font-weight: bold; color: #996600; background-color: #FFFFCC" type="button"><i class="fas fa-film mr-1"></i>新人關懷影片</button>
+</div>
+</div>
+<span id="Label1"></span>
+<div class="row justify-content-center mt-2">
+<div class="col-12 text-center">3天內的體溫記錄</div>
+<div>
+<table border="1" cellspacing="0" class="table table-sm table-bordered" id="GridView1" rules="all" style="font-size:10pt;border-collapse:collapse;">
+<tr style="white-space:nowrap;">
+<th class="px-2" scope="col"><i class="fas fa-calendar-day"></i>日期</th><th class="px-2" scope="col"><i class="fas fa-temperature-low"></i>上午</th><th class="px-2" scope="col"><i class="fas fa-temperature-low"></i>下午</th><th class="px-2" scope="col"><i class="fas fa-house-user"></i>請假</th>
+</tr><tr align="center">
+<td>
+<span id="GridView1_Label1_0">02/02</span>
+</td><td>
+<span id="GridView1_Label2_0">36.2</span>
+</td><td>
+<span id="GridView1_Label3_0"></span>
+</td><td style="white-space:nowrap;">
+<span id="GridView1_Label4_0">正常出勤</span>
+</td>
+</tr><tr align="center">
+<td>
+<span id="GridView1_Label1_1">02/01</span>
+</td><td>
+<span id="GridView1_Label2_1">36.6</span>
+</td><td>
+<span id="GridView1_Label3_1"></span>
+</td><td style="white-space:nowrap;">
+<span id="GridView1_Label4_1">正常出勤</span>
+</td>
+</tr><tr align="center">
+<td>
+<span id="GridView1_Label1_2">01/31</span>
+</td><td>
+<span id="GridView1_Label2_2">36.3</span>
+</td><td>
+<span id="GridView1_Label3_2"></span>
+</td><td style="white-space:nowrap;">
+<span id="GridView1_Label4_2">正常出勤</span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="row justify-content-center mb-2">
+</div>
+</div>
+</div>
+<div class="swiper-slide bkcolor1">
+<div class="container" id="Panel1" style="margin-top: 30px">
+<br>
+<div class="text-danger font-weight-bold d-none" style="font-size:10pt;">★ 12號起每週一,三,五新增拉亞飯類餐(限量60份)需預訂餐</div>
+<div class="row justify-content-center">
+<div class="col-6 text-center mb-1 font-weight-bold" style="font-size: large; color: #007bff">午 餐</div>
+<div class="col-6 text-center mb-1 font-weight-bold" style="font-size: large; color: #4053b1">晚 餐</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-6 timechk text-center">
+<span class="h5" id="CBL1"><input id="CBL1_0" name="CBL1$0" onclick="CheckBoxList_Click(this);" type="checkbox" value="1"/><label data-text="團 膳-葷食" for="CBL1_0">團 膳 葷 食</label><br/><input id="CBL1_1" name="CBL1$1" onclick="CheckBoxList_Click(this);" type="checkbox" value="4"/><label data-text="團 膳-素食" for="CBL1_1">團 膳 素 食</label><br/><input id="CBL1_2" name="CBL1$2" onclick="CheckBoxList_Click(this);" type="checkbox" value="5"/><label data-text="團 膳-麵食" for="CBL1_2">團 膳 麵 食</label><br/><input id="CBL1_3" name="CBL1$3" onclick="CheckBoxList_Click(this);" type="checkbox" value="2"/><label for="CBL1_3">拉亞XL雞排飯</label></span>
+</div>
+<div class="col-6 timechk2 text-center">
+<span class="h5" id="CBL2"><input id="CBL2_0" name="CBL2$0" onclick="CheckBoxList_Click(this);" type="checkbox" value="1"/><label data-text="團 膳-葷食" for="CBL2_0">團 膳 葷 食</label><br/><input id="CBL2_1" name="CBL2$1" onclick="CheckBoxList_Click(this);" type="checkbox" value="4"/><label data-text="團 膳-素食" for="CBL2_1">團 膳 素 食</label></span>
+</div>
+</div>
+<div class="text-success text-center my-1">
+</div>
+<div class="text-primary text-center">
+<span class="btn btn-sm btn-outline-primary menu0" data-target="#MenuModal" data-toggle="modal"><i class="fas fa-utensils fa-fw"></i>團膳菜單</span>
+</div>
+<div class="row justify-content-center mt-2">
+<div class="col-6 text-center">
+<span class="btn btn-lg btn-outline-danger d-none" data-target="#orderModal" data-toggle="modal" id="btnl"><i class="fas fa-user-check"></i> 取午餐</span>
+<span class="alert-danger h3 d-none" id="lx">夜班不提供訂午餐</span>
+</div>
+<div class="col-6 text-center">
+<span class="btn btn-lg btn-outline-danger d-none" data-target="#orderModal2" data-toggle="modal" id="btnd"><i class="fas fa-user-check"></i> 取晚餐</span>
+<span class="alert-danger h3 d-none" id="dx">夜班不提供訂晚餐</span>
+</div>
+</div>
+<br/>
+<div class="text-primary">
+                            ★ 午餐及加班餐(晚餐)刷餐：全家、拉亞、團膳(請擇一刷餐，不可重複刷餐；補助金額請參閱"餐費補助說明")<br/>
+                            ★ 團膳麵食僅平日午餐供應、輕食僅週三午餐供應<br/>
+                            ★ 拉亞飯類餐僅星期一,三,五午餐供應(限量120份)<br/>
+                            ★ 拉亞輕食沙拉僅週二和週四午餐供應(限量100份)<br/>
+                            ★ 團膳午餐和拉亞預定餐請於上午10:00前完成登記<br/>
+<span class="text-danger">★ 選擇拉亞非預定餐或全家則不需要預訂餐</span><br/>
+                            ★ 團膳加班餐(晚餐)下午14:30前完成登記<br/>
+<span class="text-danger">★ 日班下班考勤刷退時間需晚於19:30，才符合享有加班餐(晚餐)餐費補助福利；每日將進行考勤刷退時間比對，經查證若有不實費用由薪資扣除</span><br/>
+                            ★ 詳細資訊請查看[用餐說明]
+                        </div>
+</br></div>
+</div>
+<div class="swiper-slide" style="background-image: url('img/logobg.png'); background-repeat: repeat">
+<div style="margin-top: 60px"></div>
+<div class="container">
+<div class="row justify-content-center mb-2">
+</div>
+<div class="row">
+<div class="col-12 charge-list">
+<p><a class="btn w-100 text-left" href="/nq/edm/d1322ea6-f644-4275-beba-ab58f33c068e/023586/1674111413"><span>2023-01-19</span><br/><span class="text-primary">【鴻佰南青電子報第5期】2023 Happy New Year 兔 you!</span></a></p><p><a class="btn w-100 text-left" href="/nq/edm/d1322ea6-f644-4275-beba-ab58f33c068e/023586/1671793458"><span>2022-12-23</span><br/><span class="text-primary">【鴻佰南青電子報第4期】小編激推~聖誕小遊戲等您來玩！</span></a></p><p><a class="btn w-100 text-left" href="/nq/edm/d1322ea6-f644-4275-beba-ab58f33c068e/023586/1670902974"><span>2022-12-13</span><br/><span class="text-primary">【鴻佰南青電子報第3期】小編科普上線！世足賽與伺服器原來息息相關</span></a></p><p><a class="btn w-100 text-left" href="/nq/edm/d1322ea6-f644-4275-beba-ab58f33c068e/023586/1669366833"><span>2022-11-25</span><br/><span class="text-primary">【鴻佰南青電子報第二期】超豐富內容千萬別錯過！</span></a></p><p><a class="btn w-100 text-left" href="/nq/edm/d1322ea6-f644-4275-beba-ab58f33c068e/023586/1668066056"><span>2022-11-10</span><br/><span class="text-primary">【鴻佰南青電子報】創刊號特刊 </span></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-slide bkcolor4">
+<div style="margin-top: 70px"></div>
+<div class="container">
+<div class="row justify-content-center mt-3">
+<div class="col-4 text-center mx-0">
+<a class="btn btn-outline-primary w-100" href="https://www.surveycake.com/s/KBZRl" id="HyperLink1" style="background-color:#B9DCFF;font-size:11pt;">員工意見回饋專區</a>
+</div>
+<div class="col-4 text-center mx-0">
+<a class="btn btn-outline-primary w-100" href="javascript:__doPostBack('Announce','')" id="Announce" style="background-color:#B9DCFF;font-size:11pt;">員工事故通報專區</a>
+</div>
+<div class="col-4 text-center mx-0">
+<a class="btn btn-outline-primary w-100" href="javascript:__doPostBack('report2','')" id="report2" style="background-color:#B9DCFF;font-size:11pt;">新冠疫苗施打紀錄</a>
+</div>
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-4 text-center">
+<a class="btn btn-outline-primary w-100" href="javascript:__doPostBack('StationCertificate','')" id="StationCertificate" style="background-color:#B9DCFF;font-size:11pt;">員工上崗資格認證</a>
+</div>
+<div class="col-4 text-center">
+<a class="btn btn-outline-warning w-100" href="javascript:__doPostBack('recb','')" id="recb" style="color:#996600;background-color:#FFFFCC;font-size:11pt;">推薦獎金資訊專區</a>
+</div>
+<div class="col-4 text-center">
+<a class="btn btn-outline-primary w-100" href="https://www.ingrasys.com/nq/hr/rba_2022.pdf" id="hrbtn2" style="background-color:#B9DCFF;font-size:11pt;">鴻佰RBA政策</a>
+</div>
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-4 text-center">
+<a class="btn btn-outline-primary w-100" href="javascript:__doPostBack('other2','')" id="other2" style="background-color:#B9DCFF;font-size:11pt;">  宗教調查      </a>
+</div>
+<div class="col-4 text-center">
+<a class="btn btn-primary w-100" href="http://yq.foxconn.com:8104/index.php/home/meeting/login.html" id="linkrm3" style="color:#007BFF;background-color:#B9DCFF;font-size:11pt;">預約會議室      </a>
+</div>
+<div class="col-4 text-center">
+</div>
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-12 text-center">
+<a class="btn btn-outline-dark py-2" href="javascript:__doPostBack('qanda','')" id="qanda" style="display:inline-block;color:White;background-color:#0066CC;font-weight:bold;height:70px;width:100%;">員工百寶箱<br>常見問題FAQ</br></a>
+</div>
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-6 text-center">
+<button class="btn btn-outline-dark py-2" data-target="#videoModal" data-text="(請觀看完畢後，進行Fii CSR線上測驗)" data-toggle="modal" data-video="\nq\img\video\0.mp4" style="font-weight: bold; background-color: #B9DCFF; width: 100%;" type="button">Fii CSR<br/>線上課程</button>
+</div>
+<div class="col-6 text-center">
+<a class="btn btn-outline-dark py-2" href="javascript:__doPostBack('vote','')" id="vote" style="display:inline-block;background-color:#B9DCFF;font-weight:bold;width:100%;">Fii CSR<br/>線上測驗</a>
+</div>
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-6 text-center">
+<button class="btn btn-outline-dark py-2" data-target="#videoModal" data-text="請觀看完畢後，進行線上測驗 (間接人員請至Hahow線上平台完成課程)" data-toggle="modal" data-video="\nq\img\video\5.mp4" style="font-weight: bold; background-color: #B9DCFF; width: 100%;" type="button">職場霸凌防治<br>線上課程</br></button>
+</div>
+<div class="col-6 text-center">
+<a class="btn btn-outline-dark py-2" href="javascript:__doPostBack('test','')" id="test" style="display:inline-block;background-color:#B9DCFF;font-weight:bold;width:100%;">職場霸凌防治<br>線上測驗</br></a>
+</div>
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-6 text-center">
+<button class="btn btn-outline-dark py-2" data-target="#videoModal" data-text="請觀看完畢後，進行線上測驗 (間接人員請至Hahow線上平台完成課程)" data-toggle="modal" data-video="\nq\img\video\6.mp4" style="font-weight: bold; background-color: #B9DCFF; width: 100%;" type="button">性騷擾防治<br>線上課程</br></button>
+</div>
+<div class="col-6 text-center">
+<a class="btn btn-outline-dark py-2" href="javascript:__doPostBack('test2','')" id="test2" style="display:inline-block;background-color:#B9DCFF;font-weight:bold;width:100%;">性騷擾防治<br>線上測驗</br></a>
+</div>
+</div>
+</div>
+</div>
+<div class="swiper-slide bkcolor2">
+<div style="margin-top: 55px"></div>
+<div class="container">
+<div class="text-center font-weight-bold mb-2 border-bottom">員工餐廳(B1、B2)用餐規則</div>
+<div class="mt-1 fc1">1. 午餐、加班餐(晚餐)刷餐：全家、拉亞、團膳(請擇一刷餐，不可重複刷餐)。</div>
+<div class="mt-1 text-primary">
+                            ★午餐上午10:00前、加班餐(晚餐)下午14:30前至訂餐系統完成登記。<br>
+                            ★日班下班考勤刷退時間需晚於19:30，才符合享有加班餐(晚餐)餐費補助福利；每日將進行考勤刷退時間比對，經查證若有不實，費用由薪資扣除。<br>
+			    ★依照公司規定: 用餐請刷卡後取餐,未帶卡片請用現金給付。
+                        </br></br></div>
+<div class="mt-2 fc1 border-bottom">2. 早餐未開放刷卡取餐，請以現金支付購買。</div>
+<div class="mt-2 border-bottom">3. 用餐禮儀：餐前洗手、取餐時戴口罩不交談說話、保持桌椅整潔，用餐完畢請將餐盤廚餘及垃圾帶至回收區處理。</div>
+<div class="mt-2 fc1 border-bottom">4. 為配合環保署提倡綠色環保，減塑愛地球，響應環境友善，請自備環保餐具。用餐不提供一次性餐具(不提供免洗餐具、吸管、塑膠袋等)，需外帶者請自備保鮮盒及餐袋。</div>
+<div class="mt-2">5. 請各位同仁務必遵守相關用餐規則，若未遵守者，將停權享用當月份之用餐補助福利．情節嚴重者，將依公司「員工獎懲辦法」提報懲處。</div>
+</div>
+<div class="container">
+<div class="text-center font-weight-bold my-3 border-bottom">營業區域和時間與補助取餐說明</div>
+<div class="border-top text-primary font-weight-bold border-bottom border-primary">B1 全家便利商店 週一至週五 7:00~20:30</div>
+<div>午餐刷餐時間：11:30~14:00。</div>
+<div>晚餐刷餐時間：17:30~19:30。</div>
+<div>午餐及加班餐(晚餐)餐標：70元 (公司補助：70元)</div>
+<div class="text-danger font-weight-bold d-none">(公司補助：50元，員工負擔：20元由薪資扣除)。</div>
+<div class="mt-2 fc1 font-weight-bold">1.午餐、加班餐(晚餐)刷餐：</div>
+<div>(1)餐標：70元(主餐金額至少選購35元，其餘金額再自由選取)。</div>
+<div>(2)取餐以健康餐點為原則，超過餐標金額70元由員工自付現金。</div>
+<div class="mt-2 fc1 font-weight-bold">2.除四大類商品外，均按定價之85折銷售予同仁。</div>
+<div class="mt-2 text-danger font-weight-bold">
+                            ★主餐包括：飯糰、麵包、微波食品、水果、輕食類(豆漿、優酪乳、布丁、牛奶、優格)。
+                        </div>
+<div class="mt-2 fc1">
+                            ★四大類商品包含：特價品、免稅品(含牛奶、報章雜誌、農產品等)、服務性商品(含代收繳費服務、快遞、遊戲點數卡、通訊預付卡、洗照片等)、店鋪代售商品(電影票等)。
+                        </div>
+<div class="border-top text-primary font-weight-bold border-bottom border-primary mt-4">B1 拉亞漢堡輕食 週一至週五 7:00~20:00</div>
+<div>午餐刷餐時間：11:30~14:00。</div>
+<div>晚餐刷餐時間：17:30~19:30。</div>
+<div>午餐及加班餐(晚餐)餐標：70元 (公司補助：70元)</div>
+<div class="text-danger font-weight-bold d-none">(公司補助：50元，員工負擔：20元由薪資扣除)。</div>
+<div class="border-top text-primary font-weight-bold border-bottom border-primary mt-4">B2 團膳員工餐廳 週一至週日 11:30~00:30</div>
+<div>午餐刷餐時間：11:30~13:30</div>
+<div>晚餐刷餐時間：17:30~18:30</div>
+<div>宵夜刷餐時間：23:30~00:30</div>
+<div class="mb-1">餐標：70元 (公司補助：70元)</div>
+<div class="mb-1">提供麵食(僅平日午餐供應)、葷食自助餐、素食便當。(請擇一取餐，不可重複刷卡取餐)</div>
+<div class="mb-1 text-danger d-none">★團膳備有葷食及素食供選擇，以一個月為單位。若需變更改葷、素之需求者，請於每月25日前通知窗口GA-Naomi(分機15923)以利完成次月系統作業。</div>
+<div>★宵夜用餐及假日加班同仁：皆以供應團膳便當餐點為主。宵夜請於晚上21:00前，上訂餐系統登記。</div>
+<div class="mb-1">(宵夜及假日用餐時間，僅開放B2部份用餐區域，為維護自身安全請勿跨越至B1。)</div>
+<div class="mb-1">★未選擇團膳用餐者，請勿盛裝飯類及湯品使用。</div>
+<div class="mb-1">★為維護所有同仁權益，午餐葷食自助餐為主菜2選1，副青菜選3，每次盛裝份量1人份為原則，請適量取餐，愛地球減少廚餘量。</div>
+<div class="mb-5">★供餐食器及耗材如餐巾紙等僅供餐廳內使用，不得私自攜出外用。</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="true" aria-labelledby="orderModalLabel" class="modal fade" id="orderModal" role="dialog" style="margin-top: 100px" tabindex="-1">
+<div class="modal-dialog" role="document">
+<div class="modal-content text-dark">
+<div class="modal-header">
+<h1>
+<span id="ldate"></span></h1>
+<button aria-label="Close" class="close" data-dismiss="modal" type="button">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">
+<div class="row justify-content-center mb-2">
+<h1>
+<span id="lid">023586</span></h1>
+</div>
+<div class="row justify-content-center mb-2">
+<h1>
+<span id="lname">周稚翔</span></h1>
+</div>
+<div class="row justify-content-center mb-2">
+<h1>
+<span id="lorderF"></span></h1>
+</div>
+<div class="row justify-content-center mb-4">
+<h1>
+<span id="lorder"></span></h1>
+</div>
+<div class="row justify-content-center">
+<input class="btn btn-lg btn-outline-success" id="btnokl" type="button" value="確認刷卡取午餐"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="true" aria-labelledby="orderModalLabel" class="modal fade" id="orderModal2" role="dialog" style="margin-top: 100px" tabindex="-1">
+<div class="modal-dialog" role="document">
+<div class="modal-content text-dark">
+<div class="modal-header">
+<h1>
+<span id="ddate"></span></h1>
+<button aria-label="Close" class="close" data-dismiss="modal" type="button">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">
+<div class="row justify-content-center mb-2">
+<h1>
+<span id="did">023586</span></h1>
+</div>
+<div class="row justify-content-center mb-2">
+<h1>
+<span id="dname">周稚翔</span></h1>
+</div>
+<div class="row justify-content-center mb-2">
+<h1>
+<span id="dorderF"></span></h1>
+</div>
+<div class="row justify-content-center mb-4">
+<h1>
+<span id="dorder"></span></h1>
+</div>
+<div class="row justify-content-center">
+<input class="btn btn-lg btn-outline-success" id="btnokd" type="button" value="確認刷卡取晚餐"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-hidden="true" aria-labelledby="MenuModalLabel" class="modal fade" id="MenuModal" role="dialog" tabindex="-1">
+<div class="modal-dialog text-dark" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h4>本週團膳菜單</h4>
+<button aria-label="Close" class="close" data-dismiss="modal" type="button">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">
+<img id="Image1" src="content\menu0127.jpg" style="max-height: 100%; max-width: 100%;"/>
+<img id="Image2" src="content\nmenu0127.jpg" style="max-height: 100%; max-width: 100%;"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="videoModal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+<div class="modal-content">
+<div class="modal-header bg-dark border-dark">
+<div class="text-light" id="title"></div>
+<button class="close text-white" data-dismiss="modal" type="button">×</button>
+</div>
+<div class="modal-body bg-dark p-0"><div class="text-light" id="title2"></div>
+<div class="embed-responsive embed-responsive-16by9">
+<iframe allowfullscreen="" class="embed-responsive-item"></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+<script src="./js/main20221110.js"></script>
+<script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('完成 SW 設定!', reg))
+            .catch(err => console.log('Error!', err));
+        }
+
+        $(function () {
+            switch (window.name) {
+                case "pwa2":
+                    //電子報
+                    mySwiper3.slideTo(2);
+                    $('#swiper2 .swiper-slide').eq(2).addClass('active-nav');
+                    window.name = "";
+                    break;
+                case "pwa3":
+                    //員工專區
+                    mySwiper3.slideTo(3);
+                    $('#swiper2 .swiper-slide').eq(3).addClass('active-nav');
+                    window.name = "";
+                    break;
+                default:
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
