@@ -1,4 +1,4 @@
-var mySwiper2 = new Swiper('#swiper2', {
+﻿var mySwiper2 = new Swiper('#swiper2', {
     watchSlidesProgress: true,
     watchSlidesVisibility: true,
     slidesPerView: 5,
@@ -60,22 +60,7 @@ $(function () {
     $('input[type=radio][name=gr]').change(function () {
         if (this.value == 'rb4') { $("#ddl1").removeClass("d-none"); } else { $("#ddl1").addClass("d-none"); }
     });
-    //$("[id*=rb1] input[type=radio]").change(function () {  });
-    //console.log($('#rblcpd input:checked').val());
-    //$("#btnl").data('target', '');
 
-    ////星期六,日不提供團膳麵食
-    //var chkday = new Date().getDay();
-    //if (chkday == "0" || chkday == "6") {
-    //    //$("label[for='CBL1_2']").css("visibility", "hidden");
-    //    $("label[for='CBL1_2']").hide();
-    //}
-    ////星期三供團膳輕食
-    //if (chkday != "4") {
-    //    $("label[for='CBL1_3']").hide();
-    //    $("#CBL1_3").remove();
-
-    //}
 
     startRequest();
     //setInterval("startRequest()", 1000);
@@ -103,7 +88,7 @@ function CheckBoxList_Click(sender) {
             switch ((sender.id).split("_")[0]) {
                 case "CBL1":
                     if (conn("1", "L", sender.value, "午 餐 吃 " + $("label[for='" + sender.id + "']").text(), "V", logstr)) {
-                        if (sender.value == 1 || sender.value == 2 || sender.value == 4 || sender.value == 5 || sender.value == 6) {
+                        if (sender.value == 1 || sender.value == 2 || sender.value == 3 ||  sender.value == 4 || sender.value == 5 || sender.value == 6) {
                             $("#lorder").text("午 餐 " + $("label[for='" + sender.id + "']").attr("data-text"));
                             $("#lx").addClass("d-none");
                             $("#btnl").removeClass("d-none");//取餐按鈕
@@ -125,15 +110,14 @@ function CheckBoxList_Click(sender) {
                             case "5"://團膳麵食
                                 chkList[2].checked = true;
                                 break;
-                            case "6"://星期三團膳輕食
+                            case "6"://團膳輕食
                                 chkList[3].checked = true;
                                 break;
-                            case "2"://當輕食隱藏時需判斷拉亞在第幾項
-                                if (chkList.length == 5) {
-                                    chkList[3].checked = true;
-                                } else {
-                                    chkList[4].checked = true;
-                                }                                
+                            case "2"://拉亞輕食
+                                chkList[4].checked = true;
+                                break;
+                            case "3"://拉亞輕食2
+                                chkList[5].checked = true;
                                 break;
                         }
                     }
@@ -204,15 +188,17 @@ function CheckBoxList_Click(sender) {
 }
 
 //訂夜餐
-$("#norder ,#norder2").click(function () {
+$("#norder ,#norder2, #norder3, #norder4").click(function () {
     if ($("#hf_day").val() != "") {
         var sel = $(this).prop('id');
         var o = "1";
         if (sel == "norder2") o = "2";
-        //console.log(o);
+        if (sel == "norder3") o = "3";
+        if (sel == "norder4") o = "4";
+        console.log(o);
         var logstr = $("#t2id").text() + " - " + $("#name").text();
         if ($(this).prop("checked")) {
-            $("#norder ,#norder2").prop("checked", false);
+            $("#norder ,#norder2,#norder3,#norder4").prop("checked", false);
             $(this).prop("checked", true);
             if (conn("3", "N", o, "已 訂 夜 班 餐", "V", logstr)) {
                 $("#n1, #n2, #n3, #n4").removeClass("d-none");
@@ -353,9 +339,9 @@ function startRequest() {
     //}
 
     //if (hr > 16 && hr < 21) {
-        //$("#norder , #norder2").prop("disabled", false);
+        //$("#norder , #norder2, #norder3, #norder4").prop("disabled", false);
     //} else {
-        //$("#norder , #norder2").prop("disabled", true);
+        //$("#norder , #norder2, #norder3, #norder4").prop("disabled", true);
     //}
 }
 

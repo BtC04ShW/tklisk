@@ -61,13 +61,13 @@ input[type=checkbox] {
 }
 
 .norder > input[type=checkbox]:checked + label, .df > input[type=checkbox]:checked + label {
-    background: url(../images/cbx-on2.svg) no-repeat;
+    background: url(../images/cbx-on.svg) no-repeat;
 }
 
 .norder {
     border-style: solid;
     border-color: #FFFFFF;
-    padding: 20px;
+    padding: 15px;
     color: #FFFFFF;
     border-radius: 10px;
     font-size: 15pt;
